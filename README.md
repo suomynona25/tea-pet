@@ -54,6 +54,19 @@ Tea Pet is made up of a supervisor and three specialist agents. The supervisor o
 | **Tea researcher** | Given a tea name, researches the optimal steeping time and temperature and forms a consensus from search results. It falls back to general knowledge, and says so, if the search is inconclusive. |
 | **Tea sommelier** | Recommends teas. It asks about your mood and flavour preferences, suggests 3 teas, then gives the history and flavour profile of the one you pick, along with 3 food pairings. |
 
+### Using the tea identifier
+
+Start by asking something like `Can you help me identify a tea?` and the supervisor will hand you to the tea identifier.
+
+**Photo upload is not supported yet.** The CLI only sends text, so the identifier can't see images. When it offers the choice between a photo and a verbal description, answer verbally. Describe the tea in as much detail as you can:
+
+- What the packaging says (name, brand, origin, any text or characters)
+- What the dry leaves look like (shape, colour, size, aroma)
+- What the brewed liquor and wet leaves look like
+- What the tea tastes like
+
+The identifier asks follow-up questions if your description isn't enough. If it is still unsure after using what it knows, it searches Google with your clues, then gives you the tea's name and a summary of its reasoning.
+
 ### Tools
 
 | Tool | What it does |
