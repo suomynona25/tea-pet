@@ -63,16 +63,23 @@ def create_all_agents():
 
     #Create tea identifier agent
     tea_identifier = create_agent(
-        model = model,
-        tools = [google_tool],
-        system_prompt = ("""You are a tea identification expert that identifies teas based on provided pictures.
-        INSTRUCTIONS:
-        - When user asks for assistance for tea identification, ask them to submit a photo, or if they wish to identify verbally
-        - If the picture is insufficient for tea identification, ask necessary investigative questions including "do you have the packaging?", "What does the unbrewed tea look like?", "What does the brewed tea liquor and leaves look like?", "What does the tea taste like?"
-        - Use your general knowledge first to try to identify the tea. If the result is uncertain, use the google tool to search the internet using textual clues you have gained so far
-        - Finally answer the user the name of the tea you have identified and explain a summary of your justifications
+        model=model,
+        tools=[],
+        system_prompt= ("""
+        You are a Chinese tea identification expert. When the user's message includes 
+        a photo, examine the leaf shape, color, compression (loose leaf vs. cake/brick), 
+        liquor color if visible, and any packaging text (including Chinese characters) 
+        to identify the most likely tea name and category (green, oolong, black/red, 
+        white, dark/pu-erh, or scented). State your best guess clearly, mention what 
+        visual evidence supports it, and flag your confidence level. If there is no
+        photo in the conversation, tell the user they can attach one by typing
+        "/image <path to photo> [optional question]", or they can describe the tea
+        instead. If the photo or description is insufficient, ask investigative
+        questions such as "Do you have the packaging?", "What does the unbrewed tea
+        look like?", "What do the brewed liquor and leaves look like?", and "What
+        does the tea taste like?"
     """),
-        name = 'tea_identifier'
+        name="tea_identifier",
     )
 
     #Create supervisor agent
@@ -80,7 +87,7 @@ def create_all_agents():
         [tea_identifier, tea_researcher, tea_sommelier],
         model = model,
         prompt = ("""You are a supervisor managing a team of agents consisting of a tea identifier, tea researcher, and a tea sommelier.
-        Tea identifier identifies the name of the tea upon user request, through either images, questions, or a combination of the two. They are also able to perform google search for this purpose.
+        Tea identifier identifies the name of the tea upon user request, through either images, questions, or a combination of the two.
         Tea researcher is an expert at characteristics of a given tea such as tea steeping parameters.
         Tea sommelier is an expert at the different kinds of teas available that suit the user's preferences. They can guide the user through picking a tea that they like, and provide some background information for the user's enjoyment.
         Assign work to one agent at a time, do not call agents in parallel.

@@ -58,17 +58,31 @@ Tea Pet is made up of a supervisor and three specialist agents. The supervisor o
 
 Start by asking something like `Can you help me identify a tea?` and the supervisor will hand you to the tea identifier.
 
-**Photo upload is not supported yet.** The CLI only sends text, so the identifier can't see images. When it offers the choice between a photo and a verbal description, answer verbally. Describe the tea in as much detail as you can:
+**To identify a tea from a photo**, attach it with the `/image` command at the `Ask a question:` prompt:
+
+```
+/image C:\Photos\my-tea.jpg
+/image "C:\My Photos\my tea.jpg" What tea is this?
+```
+
+- Put the path in quotes if it contains spaces.
+- Anything after the path is sent as your question. If you leave it out, the CLI asks "Please identify this tea."
+- Supported formats: `.jpg`/`.jpeg`, `.png`, `.webp`.
+- Good photos show the dry leaves, the brewed liquor and wet leaves, or the packaging (including any Chinese characters).
+
+The identifier states its best guess, the visual evidence behind it, and how confident it is.
+
+**No photo?** Describe the tea in text instead, in as much detail as you can:
 
 - What the packaging says (name, brand, origin, any text or characters)
 - What the dry leaves look like (shape, colour, size, aroma)
 - What the brewed liquor and wet leaves look like
 - What the tea tastes like
 
-The identifier asks follow-up questions if your description isn't enough. If it is still unsure after using what it knows, it searches Google with your clues, then gives you the tea's name and a summary of its reasoning.
+The identifier asks follow-up questions if your description isn't enough. It then gives you the tea's name and a summary of its reasoning.
 
 ### Tools
 
 | Tool | What it does |
 | --- | --- |
-| `google_tool` | Runs a Google search through SerpAPI for a given query and returns the title, link and snippet of each organic result. All three agents can use it to look up tea information. |
+| `google_tool` | Runs a Google search through SerpAPI for a given query and returns the title, link and snippet of each organic result. The tea researcher and tea sommelier use it to look up tea information. |
